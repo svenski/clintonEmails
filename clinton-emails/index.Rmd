@@ -1,0 +1,53 @@
+---
+title       : Kaggle dojo
+subtitle    : 
+author      : 
+job         : 
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+widgets     : []            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+knit        : slidify::knit2slides
+---
+
+## Kaggle
+
+* Kaggle hosts data driven insights competitions online
+* Popular in the machine learning community
+* Recently they started hosting interesting data sets such as...
+
+
+--- 
+
+## Hillary Clinton's emails!
+
+* Background: Hillary Clinton was using personal email during her time as Secretary of state. 
+* Caused controversy due it possibly violating transperancy protocols.
+* 7000+ pdfs parsed and cleaned by kaggle
+
+```{r clinton, echo = FALSE, message = FALSE, warning = FALSE}
+source("../shitClintonSays.R")
+
+emails <- data.table(read.csv("~/Downloads/output/Emails.csv"))
+persons <- data.table(read.csv("~/Downloads/output/Persons.csv"))
+emails.with.person <- merge(emails, persons[, list(SenderPersonId = Id)], by = "SenderPersonId", all.x = TRUE)
+
+emails.to.hill <- emails[MetadataTo == "H"]
+emails.from.hill <- emails[MetadataFrom == "H"]
+
+freq.to.h = wordFrequencyFor(emails.to.hill)
+freq.from.h = wordFrequencyFor(emails.from.hill)
+```
+
+---
+
+```{r from, echo = FALSE, message = FALSE, warning = FALSE, fig.width = 14}
+par(mfcol=c(1,2))
+printWordCloudFor(freq.to.h, min.freq = 150)
+printWordCloudFor(freq.from.h, min.freq = 5)
+```
+
+
+
+
