@@ -4,7 +4,7 @@ library(stringr)
 
 main <- function() {
 
-  emails <- data.table(read.csv("~/Downloads/output/Emails.csv"))
+  emails <- data.table(read.csv("data/Emails.csv"))
 
   #   persons <- data.table(read.csv("~/Downloads/output/Persons.csv"))
   #   emails.with.person <- merge(emails, persons[, list(SenderPersonId = Id)], by = "SenderPersonId", all.x = TRUE)
